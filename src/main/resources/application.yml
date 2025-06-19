@@ -1,0 +1,17 @@
+spring:
+  batch:
+    job:
+      name: ${job.name:NONE}
+    jdbc:
+      initialize-schema: always
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:/org/springframework/batch/core/schema-mysql.sql
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/Batch_25_06?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+    username: root
+    password: ""
+  jpa:
+    show-sql: true
