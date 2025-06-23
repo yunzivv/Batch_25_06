@@ -33,14 +33,33 @@ public class HelloWorldConfig {
     @Bean
     @JobScope // 생명주기: helloWorldJob이 살아있는 동안
     public Step helloWorldStep1() {
-        return stepBuilderFactory.get("helloWorldStep1").tasklet(helloWorldTasklet()).build(); // helloWorldStep1: Step 이름
+        return stepBuilderFactory.get("helloWorldStep1").tasklet(helloWorldTasklet1()).build(); // helloWorldStep1: Step 이름
     }
 
     @Bean
     @StepScope // 생명주기: helloWorldStep1이 살아있는 동안
-    public Tasklet helloWorldTasklet() {
+    public Tasklet helloWorldTasklet1() {
         return (contribution, chunkContext) -> {// 메서드 종료
             System.out.println("헬로월드!!!");
+            return RepeatStatus.FINISHED; // 끝났다.
+        };
+    }
+
+    @Bean
+    @JobScope // 생명주기: helloWorldJob이 살아있는 동안
+    public Step helloWorldStep2() {
+        return stepBuilderFactory.get("helloWorldStep1").tasklet(helloWorldTasklet2()).build(); // helloWorldStep1: Step 이름
+    }
+
+    @Bean
+    @StepScope // 생명주기: helloWorldStep1이 살아있는 동안
+    public Tasklet helloWorldTasklet2() {
+        return (contribution, chunkContext) -> {// 메서드 종료
+            System.out.println("헬로월드!!!");
+
+            if(true){
+                throw new Exception("fail : helloWorldTasklet2");
+            }
             return RepeatStatus.FINISHED; // 끝났다.
         };
     }
