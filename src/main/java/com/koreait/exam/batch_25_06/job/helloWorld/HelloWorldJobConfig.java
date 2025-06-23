@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class HelloWorldConfig {
+public class HelloWorldJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
@@ -46,21 +46,22 @@ public class HelloWorldConfig {
     }
 
     @Bean
-    @JobScope // 생명주기: helloWorldJob이 살아있는 동안
+    @JobScope
     public Step helloWorldStep2() {
-        return stepBuilderFactory.get("helloWorldStep1").tasklet(helloWorldTasklet2()).build(); // helloWorldStep1: Step 이름
+        return stepBuilderFactory.get("helloWorldStep2").tasklet(helloWorldTasklet2()).build(); // helloWorldStep1: Step 이름
     }
 
     @Bean
-    @StepScope // 생명주기: helloWorldStep1이 살아있는 동안
+    @StepScope
     public Tasklet helloWorldTasklet2() {
-        return (contribution, chunkContext) -> {// 메서드 종료
-            System.out.println("헬로월드!!!");
+        return (contribution, chunkContext) -> {
+            System.out.println("헬로월드!!!2222");
 
             if(true){
-                throw new Exception("fail : helloWorldTasklet2");
+                throw new Exception("실패 : 헬로 월드 태스클릿 2 실패");
             }
-            return RepeatStatus.FINISHED; // 끝났다.
+
+            return RepeatStatus.FINISHED;
         };
     }
 }

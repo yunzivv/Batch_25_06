@@ -13,13 +13,15 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableBatchProcessing
+@EnableJpaAuditing
 public class Batch2506Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Batch2506Application.class, args);
+		SpringApplication.run(Batch2506Application.class, args); // 전체적인 job 실행
 	}
 
 }

@@ -1,13 +1,20 @@
 spring:
+  profiles:
+    active: dev
   batch:
     job:
-      names: ${job.name:helloWorldJob}
+      name: ${job.name:NONE}
     jdbc:
       initialize-schema: always
   datasource:
-    driver-class-name:
     url: jdbc:mariadb://127.0.0.1:3306/Batch_25_06?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+    driver-class-name: org.mariadb.jdbc.Driver
     username: root
-    password:
+    password: ""
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: create
+logging:
+  level:
+    com.koreait.exam.batch_25_06.Batch2506Application : debug
