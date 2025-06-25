@@ -12,7 +12,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Member join(String username, String password, String email) {
+    public Member join(String username, String password, String email) { // 객체 조립 (new)
         Member member = Member.builder()
                 .username(username)
                 .password(password)

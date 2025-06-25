@@ -27,14 +27,14 @@ public class DevInitData {
             Member member3 = memberService.join("user3",password,"user3@test.com");
             Member member4 = memberService.join("user4",password,"user4@test.com");
 
-            Product product1 = productService.create("t-shirt", 50000, "nike",
+            Product product1 = productService.create("t-shirt", 50000, 45000, "nike",
                     Arrays.asList(
                             new ProductOption("red", "95"),
                             new ProductOption("red", "100"),
                             new ProductOption("red", "105"),
                             new ProductOption("red", "110")
                     ));
-            Product product2 = productService.create("pants", 30000, "nike",
+            Product product2 = productService.create("pants", 30000, 25000, "nike",
                     Arrays.asList(
                             new ProductOption("blue", "95"),
                             new ProductOption("blue", "100"),

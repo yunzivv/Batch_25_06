@@ -22,7 +22,13 @@ public class ProductOption extends BaseEntity {
 
     private String color;
     private String size;
+
     private Integer price;
+    private int wholeSalePrice;
+    private int salePrice;
+
+    private String displayColor;
+    private String displaySize;
 
     private boolean isSoldOut;
     private int stockQuantity;
@@ -33,12 +39,13 @@ public class ProductOption extends BaseEntity {
 
     public ProductOption(String color, String size) {
         this.color = color;
+        this.displayColor = color;
         this.size = size;
+        this.displaySize = size;
     }
 
     public boolean isOrderable(int quantity) {
         if(!isSoldOut()) return true;
-
         return getStockQuantity() >= quantity;
     }
 

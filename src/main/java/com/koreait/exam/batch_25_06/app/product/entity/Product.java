@@ -1,10 +1,7 @@
 package com.koreait.exam.batch_25_06.app.product.entity;
 
 import com.koreait.exam.batch_25_06.app.entity.BaseEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
@@ -16,13 +13,16 @@ import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
 public class Product extends BaseEntity {
 
     private String name;
+    private int salePrice;
     private int price;
+    private int wholeSalePrice;
     private String makerShopName;
 
     @Builder.Default
@@ -32,6 +32,8 @@ public class Product extends BaseEntity {
     public void addProductOption(ProductOption option) {
         option.setProduct(this);
         option.setPrice(getPrice());
+        option.setWholeSalePrice(getWholeSalePrice());
+        option.setSalePrice(getSalePrice());
 
         productOptions.add(option);
     }

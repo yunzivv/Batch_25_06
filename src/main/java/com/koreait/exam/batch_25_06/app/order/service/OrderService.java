@@ -16,13 +16,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional(readOnly = true) // 조회 전용
 public class OrderService {
 
     private final CartService cartService;
     private final OrderRepository orderRepository;
 
-    @Transactional
+    @Transactional // transaction 선언
     public Order createFromCart(Member member) {
         // 전달받은 회원의 장바구니에 있는 아이템들을 전부 가져와
 

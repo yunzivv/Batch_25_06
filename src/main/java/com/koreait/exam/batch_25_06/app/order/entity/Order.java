@@ -22,7 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
-@Table(name = "order")
+@Table(name = "order") // 테이블 이름 직접 설정
 public class Order extends BaseEntity {
 
     @ManyToOne(fetch = LAZY)
