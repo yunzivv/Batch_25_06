@@ -19,6 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 @SuperBuilder
 @ToString(callSuper = true) // 연관관계 어노테이션
 public class ProductOption extends BaseEntity {
+
     private String color;
     private String size;
     private Integer price;
@@ -26,13 +27,19 @@ public class ProductOption extends BaseEntity {
     private boolean isSoldOut;
     private int stockQuantity;
 
-
     @ManyToOne(fetch = LAZY)
+    @ToString.Exclude
     private Product product;
 
     public ProductOption(String color, String size) {
         this.color = color;
         this.size = size;
+    }
+
+    public boolean isOrderable(int quantity) {
+        if(!isSoldOut()) return true;
+
+        return getStockQuantity() >= quantity;
     }
 
 }

@@ -1,6 +1,10 @@
 spring:
   profiles:
     active: dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
   batch:
     job:
       name: ${job.name:NONE}
@@ -11,10 +15,6 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: ""
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create
 logging:
   level:
     com.koreait.exam.batch_25_06.Batch2506Application : debug

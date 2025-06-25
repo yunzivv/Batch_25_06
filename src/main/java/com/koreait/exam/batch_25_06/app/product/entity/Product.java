@@ -1,6 +1,5 @@
 package com.koreait.exam.batch_25_06.app.product.entity;
 
-
 import com.koreait.exam.batch_25_06.app.entity.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +20,7 @@ import static javax.persistence.CascadeType.ALL;
 @SuperBuilder
 @ToString(callSuper = true)
 public class Product extends BaseEntity {
+
     private String name;
     private int price;
     private String makerShopName;

@@ -35,7 +35,7 @@ public class BaseEntity {
     @LastModifiedDate
     private LocalDateTime updateDate;
 
-    @Transient // 아래의 필드가 DB 컬림이 되는것을 막아
+    @Transient // 아래의 필드가 DB 컬럼이 되는 것을 방지
     @Builder.Default
     private Map<String,Object> extra = new LinkedHashMap<>();
 
