@@ -17,21 +17,27 @@ import static javax.persistence.FetchType.LAZY;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-@ToString(callSuper = true) // 연관관계 어노테이션
+@ToString(callSuper = true)
 public class ProductOption extends BaseEntity {
-
     private String color;
     private String size;
 
-    private Integer price;
-    private int wholeSalePrice;
-    private int salePrice;
+    private int price; // 권장 판매가 30000
+    private int salePrice; // 실제 판매가 40000
+    private int wholeSalePrice; // 도매가 < 30000
+    private int payPrice; // 결제 금액
+    private int refundPrice; // 환불 금액
+    private int pgFee; // 결제대행사 수수료
+    private int refundQuantity; // 환불 갯수
+    private boolean idPaid; // 결제 여부
+
 
     private String displayColor;
     private String displaySize;
 
-    private boolean isSoldOut;
-    private int stockQuantity;
+    private boolean isSoldOut; // 관련 옵션의 판매가능 여부
+    private int stockQuantity; // 보유 물건 수량
+
 
     @ManyToOne(fetch = LAZY)
     @ToString.Exclude
@@ -45,7 +51,8 @@ public class ProductOption extends BaseEntity {
     }
 
     public boolean isOrderable(int quantity) {
-        if(!isSoldOut()) return true;
+        if(isSoldOut() == false) return true;
+
         return getStockQuantity() >= quantity;
     }
 

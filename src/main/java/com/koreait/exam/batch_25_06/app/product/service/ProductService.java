@@ -20,15 +20,17 @@ public class ProductService {
 
         Product product = Product.builder()
                 .name(name)
+                .salePrice(salePrice)
                 .price(price)
                 .wholeSalePrice(wholeSalePrice)
                 .makerShopName(makerShopName).build();
 
-        productRepository.save(product);
-
         for (ProductOption option : options) {
             product.addProductOption(option);
         }
+
+        productRepository.save(product);
+
         return product;
     }
 }

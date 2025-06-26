@@ -3,6 +3,7 @@ package com.koreait.exam.batch_25_06.app.order.service;
 import com.koreait.exam.batch_25_06.app.cart.entity.CartItem;
 import com.koreait.exam.batch_25_06.app.cart.service.CartService;
 import com.koreait.exam.batch_25_06.app.member.entity.Member;
+import com.koreait.exam.batch_25_06.app.member.service.MemberService;
 import com.koreait.exam.batch_25_06.app.order.entity.Order;
 import com.koreait.exam.batch_25_06.app.order.entity.OrderItem;
 import com.koreait.exam.batch_25_06.app.order.repository.OrderRepository;
@@ -20,6 +21,7 @@ import java.util.List;
 public class OrderService {
 
     private final CartService cartService;
+    private final MemberService memberService;
     private final OrderRepository orderRepository;
 
     @Transactional // transaction 선언
@@ -58,5 +60,33 @@ public class OrderService {
         orderRepository.save(order);
 
         return order;
+    }
+
+    @Transactional
+    public void payByRestCashOnly(Order order) {
+        Member orderer = order.getMember();
+
+        long restCash = orderer.getRestCash();
+
+        int payPrice = order.calculatePayPrice();
+
+        if(payPrice > restCash) {
+            throw new RuntimeException("예치금이 부족해");
+        }
+
+        memberService.addCash(orderer,payPrice * -1,"주문결제_예치금");
+
+        order.setPaymentDone();
+
+        orderRepository.save(order);
+    }
+
+    @Transactional
+    public void refund(Order order) {
+        int payPrice = order.getPayPrice();
+        memberService.addCash(order.getMember(),payPrice,"주문환불_예치금");
+
+        order.setRefundDone();
+        orderRepository.save(order);
     }
 }
